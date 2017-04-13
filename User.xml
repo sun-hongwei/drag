@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun.bean.User">
+
+	<!-- <resultMap type="Person" id="personMap">
+		<id column="personId" property="id"/>
+		<result column="personName" property="name"/>
+		<result column="personAddress" property="address"/>
+		<result column="personTel" property="tel"/>
+		
+		一对多
+		property:指的是集合属性的值 ofType：集合中元素的类型
+		<collection property="orders" ofType="Order">
+			<id column="orderId" property="id"/>
+			<result column="orderNumber" property="number"/>
+			<result column="orderPrice" property="price"/>
+		</collection>
+	</resultMap> -->
+	
+	<!-- <select id="selectPersonById" parameterType="int" resultMap="personMap">
+		select p.*,o.* from person p,orders o where p.personId  = o.pid and p.personId = #{id}
+		select * from user where user_id = #{id}
+	</select> -->
+	<!--  WHERE USER_ID = #{USER_ID} --> <!-- parameterType="string" -->
+	<select id="selectUserByAll"  resultType="User">
+		SELECT user_id as userId,user_name as userName,user_age as userAge FROM USER
+	</select>
+	
+	<select id="selectUserById" parameterType="string" resultType="User">
+		SELECT user_id,user_name,user_age FROM USER where user_id = #{USER_ID}
+	</select>
+	
+	<insert id="addUser" parameterType="User">
+		insert into user (user_id,user_name,user_age) values (#{user_id},#{user_name},#{user_age});
+	</insert>
+	
+	<delete id="deleteforUser" parameterType="string">
+		delete from user where user_id = #{id}
+	</delete>
+	
+	<update id="updateforUser" parameterType="User">
+		update user set user_age = #{user_age} where user_id = #{user_id}
+	</update>
+</mapper>
